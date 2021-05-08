@@ -32,8 +32,9 @@
 <style>
     .loginpage{
 
-        height: 200px;
-        
+        height: 450px;
+        padding-top: 120px;
+
     }
 </style>
 </html>
