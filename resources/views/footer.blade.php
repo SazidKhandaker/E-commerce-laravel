@@ -1,6 +1,5 @@
-<div class="panel panel-default">
-    <div class="panel-body">
-        Panel content
+<footer>
+    <div class="footer">
+        <p>Sazid Khandaker @2021</p>
     </div>
-    <div class="panel-footer">Panel footer</div>
-</div>
+</footer>

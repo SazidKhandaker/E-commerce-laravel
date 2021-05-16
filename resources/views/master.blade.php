@@ -18,23 +18,96 @@
 <body>
 @include('header');
 @yield('content');
-@include('footer');
 
-<!-- for testing jquery
-<script>
-    $(document).ready(function (){$("button").click(function () { alert('Working')
-    })
-    })
-</script>
--->
+
+
 </body>
 
+
+
 <style>
+    .h1, .h2, .h3, h1, h2, h3 {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
     .loginpage{
 
         height: 450px;
         padding-top: 120px;
 
     }
+
+    img.slider-photo{
+
+        height: 400px !important; ;
+
+    }
+    .custom-product{
+
+        height: 700px;
+    }
+    .slider-text{
+
+        background-color: #718096 !important;
+    }
+    .product-img{
+
+        height: 170px;
+    }
+    .product-item{
+
+    }
+    .product-item{
+
+        float: left;
+        width: 25%;
+    }
+    .wrape{
+
+        margin: 30px;
+    }
+    .detail-img{
+        padding: 10px;
+
+        height: 220px;
+    }
+    .search-box{
+        width: 500px !important;
+
+    }
+    .list-divider{
+
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+    .footer {
+       text-align: center;
+        padding: 10px;
+    }
+    .dop{
+   margin-bottom: 20px;
+
+    }
+ .passd{
+
+     margin-bottom: 20px;
+
+ }
+ .center{
+     margin-left: 53px;
+
+     margin-top: 10px;
+ }
+    h1{
+       color: #cccccc;
+        text-align: center;
+    }
 </style>
+
+<footer>
+    <div class="footer">
+        <p>Sazid Khandaker @2021</p>
+    </div>
+</footer>
 </html>
