@@ -3,46 +3,66 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
 {
- function login(Request $rqst){
+    function login(Request $request)
+    {
 
 
-    $user=User::where(['email'=>$rqst->email])->first();
+        $request->validate([
+            'email' => ['required', 'email', 'min:3', 'max:255'],
+            'password' => ['required', 'min:3', 'max:255'],
+        ]);
 
-    if (!$user || !Hash::check($rqst->password,$user->password)){
+        $attempt = auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
 
-        return redirect('password_missmatch');
+        if (!$attempt) {
+            return redirect('/password_missmatch');
+        }
+
+        return redirect()->route('home');
     }
-    else{
-         $rqst->session()->put('user',$user);
-        return redirect('/');
+
+    public function register(Request $rqs)
+    {
+        $rqs->validate([
+            'name' => ['required', 'min:3', 'max:255'],
+            'email' => ['required', 'email', 'min:3', 'max:255'],
+            'password' => ['required', 'min:3', 'max:255'],
+        ]);
+
+        $user = new User;
+        $user->name = $rqs->name;
+        $user->email = $rqs->email;
+        $user->password = Hash::make($rqs->password);
+        $user->save();
+
+        return redirect('/register_done');
     }
- }
 
- public function register(Request $rqs){
+    public function registerD()
+    {
+        return view('register_done');
+    }
 
-    $user= new User;
-    $user->name=$rqs->name;
-     $user->email=$rqs->email;
-  $user->password=Hash::make($rqs->password);
-   $user->save();
-  return redirect('/register_done');
+    public function password_miss()
+    {
+        return view('password_missmatch');
+    }
 
 
- }
-
- public function registerD(){
-     return view ('register_done');
- }
-    public function password_miss(){
-        return view ('password_missmatch');
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('auth.login');
     }
 
 

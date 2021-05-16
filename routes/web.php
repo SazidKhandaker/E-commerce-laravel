@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\productController;
 use Illuminate\Support\Facades\Route;
-use  App\Http\Controllers\UserController;
-use  App\Http\Controllers\productController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,20 +22,21 @@ Route::get('/logout', function () {
     return redirect('login');
 });
 
-Route::post('/login', [\App\Http\Controllers\UserController::class, 'login']);
-Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
-Route::get('/', [productController::class, 'index']);
-Route::get('detail/{id}', [productController::class, 'detail']);
-Route::get('search', [productController::class, 'search']);
-Route::post('add_to_cart', [productController::class, 'AddToCart']);
-Route::get('cartlist',[productController::class, 'cartList']);
-Route::get('removecart/{id}', [productController::class, 'removeCart']);
-Route::get('ordernow', [productController::class, 'oderNow']);
+Route::post('/login', [\App\Http\Controllers\UserController::class, 'login'])->name('auth.login');
+Route::post('/register', [\App\Http\Controllers\UserController::class, 'register'])->name('auth.register');
+Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->name('auth.logout');
+Route::get('/', [productController::class, 'index'])->name('home');
+Route::get('detail/{id}', [productController::class, 'detail'])->name('product.detail');
+Route::get('search', [productController::class, 'search'])->name('search');
+Route::post('add_to_cart', [productController::class, 'AddToCart'])->name('add-to-cart')->middleware('auth');
+Route::get('cartlist', [productController::class, 'cartList'])->middleware('auth');
+Route::post('removecart/{id}', [productController::class, 'removeCart'])->name('cart.remove');
+Route::get('ordernow', [productController::class, 'oderNow'])->middleware('auth');
 Route::post('orderplace', [productController::class, 'orderPlace']);
-Route::get('myorder', [productController::class, 'myOrder']);
-Route::view('/register','register');
-Route::view('/register_done','register_done');
-Route::view('/password_missmatch','password_missmatch');
+Route::get('my-orders', [productController::class, 'myOrder'])->name('my-orders');
+Route::view('/register', 'register');
+Route::view('/register_done', 'register_done');
+Route::view('/password_missmatch', 'password_missmatch');
 
 
 

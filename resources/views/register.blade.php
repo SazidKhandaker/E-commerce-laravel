@@ -1,30 +1,62 @@
-@extends('master');
-@section('content');
-<div class="container loginpage">
-    <div class="row">
-        <div class="col-sm-4 col-sm-offset-4" >
-            <form class="navbar-form navbar-left" role="search" action="register" method="POST" >
-                @csrf
-                <div class="form-group">
+@extends('master')
 
-                <lable>User name</lable>
-                    <input type="text"  name="name" class="form-control" placeholder="user name">
-                </div>
-                <div class="form-group">
+@section('title')
+    Register
+@endsection
 
-                    <lable>User email    </lable>
-                    <input type="text"  name="email" class="form-control" placeholder="email">
+@section('content')
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        Register
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('auth.register') }}" method="post">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="name" name="name" class="form-control  @error('name') is-invalid @enderror"
+                                       id="name"
+                                       value="{{old('name')}}"
+                                       placeholder="Your name">
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control  @error('email') is-invalid @enderror"
+                                       name="email" id="email" placeholder="Your email address"
+                                       value="{{old('email')}}">
+                                @error('email')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password"
+                                       class="form-control  @error('password') is-invalid @enderror"
+                                       id="password">
+                                @error('password')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                                <a class="m-lg-3" href="{{ route('auth.login') }}">Login</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <lable>Password  </lable>
-                    <input type="password" name="password" class="form-control" placeholder="password">
-                </div>
-                <div class="center">
-                    <button type="submit" class="btn btn-success">Sign up</button>
-                </div>
-
-            </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
